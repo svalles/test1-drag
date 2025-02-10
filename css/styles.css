@@ -1,5 +1,28 @@
-#contenedor-tabla, #contenedor-tabla-paginas, #contenedor-tabla-pagina {
+#contenedor-tabla {
     position: absolute; /* Para poder moverlo libremente */
+    left: 10px; /* Posición inicial a la izquierda de la pantalla */
+    top: 50px;
+    cursor: grab; /* Cambia el cursor al arrastrar */
+    border: 1px solid #ccc; /* Borde para visualización */
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#contenedor-tabla-paginas {
+    position: absolute; /* Para poder moverlo libremente */
+    left: 50%; /* Posición inicial al centro de la pantalla */
+    top: 50px;
+    transform: translateX(-50%);
+    cursor: grab; /* Cambia el cursor al arrastrar */
+    border: 1px solid #ccc; /* Borde para visualización */
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#contenedor-tabla-pagina {
+    position: absolute; /* Para poder moverlo libremente */
+    right: 10px; /* Posición inicial a la derecha de la pantalla */
+    top: 50px;
     cursor: grab; /* Cambia el cursor al arrastrar */
     border: 1px solid #ccc; /* Borde para visualización */
     padding: 10px;
