@@ -1,6 +1,7 @@
 const contenedorTabla = document.getElementById('contenedor-tabla');
 const contenedorTablaPaginas = document.getElementById('contenedor-tabla-paginas');
 const contenedorTablaPagina = document.getElementById('contenedor-tabla-pagina');
+const flecha = document.getElementById('flecha').querySelector('line');
 let isDragging = false;
 let offsetX, offsetY;
 let currentElement = null;
@@ -16,6 +17,7 @@ function onMouseMove(e) {
     if (!isDragging || !currentElement) return;
     currentElement.style.left = (e.clientX - offsetX) + 'px';
     currentElement.style.top = (e.clientY - offsetY) + 'px';
+    updateArrow();
 }
 
 function onMouseUp() {
@@ -23,11 +25,24 @@ function onMouseUp() {
     currentElement = null;
 }
 
+function updateArrow() {
+    const dirCell = contenedorTabla.querySelectorAll('tbody tr')[1].querySelector('input');
+    const pageCell = contenedorTablaPaginas.querySelectorAll('tbody tr')[1].querySelector('input');
+    const dirRect = dirCell.getBoundingClientRect();
+    const pageRect = pageCell.getBoundingClientRect();
+    flecha.setAttribute('x1', dirRect.right);
+    flecha.setAttribute('y1', dirRect.top + dirRect.height / 2);
+    flecha.setAttribute('x2', pageRect.left);
+    flecha.setAttribute('y2', pageRect.top + pageRect.height / 2);
+}
+
 contenedorTabla.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTabla));
 contenedorTablaPaginas.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTablaPaginas));
 contenedorTablaPagina.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTablaPagina));
 document.addEventListener('mouseup', onMouseUp);
 document.addEventListener('mousemove', onMouseMove);
+window.addEventListener('load', updateArrow);
+window.addEventListener('resize', updateArrow);
 
 function calcularDireccionFisica() {
     const direccionVirtual = document.getElementById('direccion-virtual').value;
