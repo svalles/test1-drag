@@ -1,19 +1,28 @@
 const contenedorTabla = document.getElementById('contenedor-tabla');
+const contenedorTablaPaginas = document.getElementById('contenedor-tabla-paginas');
 let isDragging = false;
 let offsetX, offsetY;
+let currentElement = null;
 
-contenedorTabla.addEventListener('mousedown', (e) => {
+function onMouseDown(e, element) {
     isDragging = true;
-    offsetX = e.clientX - contenedorTabla.offsetLeft;
-    offsetY = e.clientY - contenedorTabla.offsetTop;
-});
+    currentElement = element;
+    offsetX = e.clientX - element.offsetLeft;
+    offsetY = e.clientY - element.offsetTop;
+}
 
-document.addEventListener('mouseup', () => {
+function onMouseMove(e) {
+    if (!isDragging || !currentElement) return;
+    currentElement.style.left = (e.clientX - offsetX) + 'px';
+    currentElement.style.top = (e.clientY - offsetY) + 'px';
+}
+
+function onMouseUp() {
     isDragging = false;
-});
+    currentElement = null;
+}
 
-document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    contenedorTabla.style.left = (e.clientX - offsetX) + 'px';
-    contenedorTabla.style.top = (e.clientY - offsetY) + 'px';
-});
+contenedorTabla.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTabla));
+contenedorTablaPaginas.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTablaPaginas));
+document.addEventListener('mouseup', onMouseUp);
+document.addEventListener('mousemove', onMouseMove);

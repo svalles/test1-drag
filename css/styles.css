@@ -10,6 +10,18 @@
     cursor: grabbing; /* Cambia el cursor al estar arrastrando */
 }
 
+#contenedor-tabla-paginas {
+    position: absolute; /* Para poder moverlo libremente */
+    cursor: grab; /* Cambia el cursor al arrastrar */
+    border: 1px solid #ccc; /* Borde para visualización */
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#contenedor-tabla-paginas:active {
+    cursor: grabbing; /* Cambia el cursor al estar arrastrando */
+}
+
 table {
     border-collapse: collapse; /* Evita bordes dobles entre celdas */
 }
