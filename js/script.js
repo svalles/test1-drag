@@ -35,17 +35,24 @@ function calcularDireccionFisica() {
     const tablaPaginas = document.querySelectorAll('#contenedor-tabla-paginas input');
     const pagina = document.querySelectorAll('#contenedor-tabla-pagina input');
 
+    if (!/^[0-9a-fA-F]{8}$/.test(direccionVirtual)) {
+        alert('Por favor, ingrese una dirección virtual válida de 8 caracteres hexadecimales.');
+        return;
+    }
+
+    // Extraer los 20 bits menos significativos
+    const offset = parseInt(direccionVirtual, 16) & 0xFFFFF;
+    document.getElementById('offset').innerText = `Offset: ${offset.toString(16).toUpperCase()}`;
+
     // Aquí debes implementar la lógica para calcular la dirección física
     // según la paginación de Intel x86. Este es un ejemplo básico:
     const dirIndex = parseInt(direccionVirtual, 16) >> 22;
     const tablaIndex = (parseInt(direccionVirtual, 16) >> 12) & 0x3FF;
-    const offset = parseInt(direccionVirtual, 16) & 0xFFF;
 
     const dirEntry = directorio[dirIndex].value;
     const tablaEntry = tablaPaginas[tablaIndex].value;
-    const paginaEntry = pagina[offset].value;
 
     const direccionFisica = (parseInt(tablaEntry, 16) << 12) | offset;
 
-    document.getElementById('direccion-fisica').innerText = `Dirección Física: ${direccionFisica.toString(16)}`;
+    document.getElementById('direccion-fisica').innerText = `Dirección Física: ${direccionFisica.toString(16).toUpperCase()}`;
 }
