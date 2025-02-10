@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla Drag-and-Drop</title>
+    <title>Sistema de Paginación Intel x86</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+    <h1>Sistema de Paginación Intel x86</h1>
+    <p>Ingrese una dirección virtual para determinar la dirección física.</p>
+    <input type="text" id="direccion-virtual" placeholder="Ingrese dirección virtual">
+    <button onclick="calcularDireccionFisica()">Calcular Dirección Física</button>
+    <p id="direccion-fisica"></p>
 
     <div id="contenedor-tabla">
         <table>
@@ -32,6 +38,8 @@
         </table>
     </div>
 
+    <div class="arrow">→</div>
+
     <div id="contenedor-tabla-paginas">
         <table>
             <thead>
@@ -51,6 +59,32 @@
                 </tr>
                 <tr>
                     <td><input type="text" name="tabla-paginas"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="arrow">→</div>
+
+    <div id="contenedor-tabla-pagina">
+        <table>
+            <thead>
+                <tr>
+                    <th>Página</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" name="pagina"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="pagina"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="pagina"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="pagina"></td>
                 </tr>
             </tbody>
         </table>

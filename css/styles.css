@@ -1,4 +1,4 @@
-#contenedor-tabla {
+#contenedor-tabla, #contenedor-tabla-paginas, #contenedor-tabla-pagina {
     position: absolute; /* Para poder moverlo libremente */
     cursor: grab; /* Cambia el cursor al arrastrar */
     border: 1px solid #ccc; /* Borde para visualización */
@@ -6,19 +6,7 @@
     background-color: #f9f9f9;
 }
 
-#contenedor-tabla:active {
-    cursor: grabbing; /* Cambia el cursor al estar arrastrando */
-}
-
-#contenedor-tabla-paginas {
-    position: absolute; /* Para poder moverlo libremente */
-    cursor: grab; /* Cambia el cursor al arrastrar */
-    border: 1px solid #ccc; /* Borde para visualización */
-    padding: 10px;
-    background-color: #f9f9f9;
-}
-
-#contenedor-tabla-paginas:active {
+#contenedor-tabla:active, #contenedor-tabla-paginas:active, #contenedor-tabla-pagina:active {
     cursor: grabbing; /* Cambia el cursor al estar arrastrando */
 }
 
@@ -35,4 +23,10 @@ th, td {
 input[type="text"] {
     width: 100%; /* Para que el input ocupe todo el ancho de la celda */
     box-sizing: border-box; /* Incluye el padding y el border en el ancho total */
+}
+
+.arrow {
+    display: inline-block;
+    margin: 20px;
+    font-size: 24px;
 }
