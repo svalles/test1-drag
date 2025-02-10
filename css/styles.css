@@ -1,35 +1,28 @@
-#contenedor-tabla {
+#contenedor-tabla, #contenedor-tabla-paginas, #contenedor-tabla-pagina {
     position: absolute; /* Para poder moverlo libremente */
+    cursor: grab; /* Cambia el cursor al arrastrar */
+    border: 1px solid #ccc; /* Borde para visualización */
+    padding: 10px;
+    background-color: #f9f9f9;
+    width: 200px; /* Define un ancho específico para las tablas */
+}
+
+#contenedor-tabla {
     left: 10px; /* Posición inicial a la izquierda de la pantalla */
     top: 50%; /* Posición inicial en la mitad vertical de la pantalla */
     transform: translateY(-50%);
-    cursor: grab; /* Cambia el cursor al arrastrar */
-    border: 1px solid #ccc; /* Borde para visualización */
-    padding: 10px;
-    background-color: #f9f9f9;
 }
 
 #contenedor-tabla-paginas {
-    position: absolute; /* Para poder moverlo libremente */
     left: 50%; /* Posición inicial al centro de la pantalla */
     top: 50%; /* Posición inicial en la mitad vertical de la pantalla */
     transform: translate(-50%, -50%);
-    cursor: grab; /* Cambia el cursor al arrastrar */
-    border: 1px solid #ccc; /* Borde para visualización */
-    padding: 10px;
-    background-color: #f9f9f9;
 }
 
 #contenedor-tabla-pagina {
-    position: absolute; /* Para poder moverlo libremente */
     right: 10px; /* Posición inicial a la derecha de la pantalla */
     top: 50%; /* Posición inicial en la mitad vertical de la pantalla */
     transform: translateY(-50%);
-    cursor: grab; /* Cambia el cursor al arrastrar */
-    border: 1px solid #ccc; /* Borde para visualización */
-    padding: 10px;
-    background-color: #f9f9f9;
-    width: auto; /* Asegura que el ancho sea automático */
 }
 
 #contenedor-tabla:active, #contenedor-tabla-paginas:active, #contenedor-tabla-pagina:active {
@@ -38,6 +31,7 @@
 
 table {
     border-collapse: collapse; /* Evita bordes dobles entre celdas */
+    width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
 }
 
 th, td {
