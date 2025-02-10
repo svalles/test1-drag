@@ -40,8 +40,8 @@ function calcularDireccionFisica() {
         return;
     }
 
-    // Extraer los 20 bits menos significativos
-    const offset = parseInt(direccionVirtual, 16) & 0xFFFFF;
+    // Extraer los 12 bits menos significativos
+    const offset = parseInt(direccionVirtual, 16) & 0xFFF;
     document.getElementById('offset').innerText = `Offset: ${offset.toString(16).toUpperCase()}`;
 
     // Extraer los 10 bits entre el bit 12 y el bit 21
