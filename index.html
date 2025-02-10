@@ -10,9 +10,10 @@
 
     <h1>Sistema de Paginación Intel x86</h1>
     <p>Ingrese una dirección virtual para determinar la dirección física.</p>
-    <input type="text" id="direccion-virtual" placeholder="Ingrese dirección virtual">
+    <input type="text" id="direccion-virtual" placeholder="Ingrese dirección virtual en hexadecimal" maxlength="8">
     <button onclick="calcularDireccionFisica()">Calcular Dirección Física</button>
     <p id="direccion-fisica"></p>
+    <p id="offset"></p>
 
     <div id="contenedor-tabla">
         <table>
