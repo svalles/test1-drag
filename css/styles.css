@@ -1,0 +1,26 @@
+#contenedor-tabla {
+    position: absolute; /* Para poder moverlo libremente */
+    cursor: grab; /* Cambia el cursor al arrastrar */
+    border: 1px solid #ccc; /* Borde para visualización */
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#contenedor-tabla:active {
+    cursor: grabbing; /* Cambia el cursor al estar arrastrando */
+}
+
+table {
+    border-collapse: collapse; /* Evita bordes dobles entre celdas */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Bordes para las celdas */
+    padding: 8px;
+    text-align: left;
+}
+
+input[type="text"] {
+    width: 100%; /* Para que el input ocupe todo el ancho de la celda */
+    box-sizing: border-box; /* Incluye el padding y el border en el ancho total */
+}
