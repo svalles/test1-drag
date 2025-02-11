@@ -2,6 +2,7 @@ const contenedorTabla = document.getElementById('contenedor-tabla');
 const contenedorTablaPaginas = document.getElementById('contenedor-tabla-paginas');
 const contenedorTablaPagina = document.getElementById('contenedor-tabla-pagina');
 const flecha = document.getElementById('flecha').querySelector('line');
+const flechaCr3 = document.getElementById('flecha-cr3').querySelector('line');
 let isDragging = false;
 let offsetX, offsetY;
 let currentElement = null;
@@ -17,7 +18,7 @@ function onMouseMove(e) {
     if (!isDragging || !currentElement) return;
     currentElement.style.left = (e.clientX - offsetX) + 'px';
     currentElement.style.top = (e.clientY - offsetY) + 'px';
-    updateArrow();
+    updateArrows();
 }
 
 function onMouseUp() {
@@ -25,7 +26,7 @@ function onMouseUp() {
     currentElement = null;
 }
 
-function updateArrow() {
+function updateArrows() {
     const dirCell = contenedorTabla.querySelectorAll('tbody tr')[1].querySelector('input');
     const pageCell = contenedorTablaPaginas.querySelectorAll('tbody tr')[1].querySelector('input');
     const dirRect = dirCell.getBoundingClientRect();
@@ -34,6 +35,14 @@ function updateArrow() {
     flecha.setAttribute('y1', dirRect.top + dirRect.height / 2);
     flecha.setAttribute('x2', pageRect.left);
     flecha.setAttribute('y2', pageRect.top + pageRect.height / 2);
+
+    const cr3Input = document.getElementById('cr3');
+    const cr3Rect = cr3Input.getBoundingClientRect();
+    const dirTableRect = contenedorTabla.getBoundingClientRect();
+    flechaCr3.setAttribute('x1', cr3Rect.right);
+    flechaCr3.setAttribute('y1', cr3Rect.top + cr3Rect.height / 2);
+    flechaCr3.setAttribute('x2', dirTableRect.left);
+    flechaCr3.setAttribute('y2', dirTableRect.top);
 }
 
 contenedorTabla.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTabla));
@@ -41,11 +50,12 @@ contenedorTablaPaginas.addEventListener('mousedown', (e) => onMouseDown(e, conte
 contenedorTablaPagina.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTablaPagina));
 document.addEventListener('mouseup', onMouseUp);
 document.addEventListener('mousemove', onMouseMove);
-window.addEventListener('load', updateArrow);
-window.addEventListener('resize', updateArrow);
+window.addEventListener('load', updateArrows);
+window.addEventListener('resize', updateArrows);
 
 function calcularDireccionFisica() {
     const direccionVirtual = document.getElementById('direccion-virtual').value;
+    const cr3 = document.getElementById('cr3').value;
     const directorio = document.querySelectorAll('#contenedor-tabla input');
     const tablaPaginas = document.querySelectorAll('#contenedor-tabla-paginas input');
     const pagina = document.querySelectorAll('#contenedor-tabla-pagina input');
@@ -53,6 +63,13 @@ function calcularDireccionFisica() {
     if (!/^[0-9a-fA-F]{8}$/.test(direccionVirtual)) {
         alert('Por favor, ingrese una dirección virtual válida de 8 caracteres hexadecimales.');
         return;
+    }
+
+    if (!/^[0-9a-fA-F]{8}$/.test(cr3)) {
+        document.getElementById('cr3-error').innerText = 'Por favor, ingrese un valor CR3 válido de 8 caracteres hexadecimales.';
+        return;
+    } else {
+        document.getElementById('cr3-error').innerText = '';
     }
 
     // Extraer los 12 bits menos significativos
