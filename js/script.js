@@ -1,6 +1,7 @@
 const contenedorTabla = document.getElementById('contenedor-tabla');
 const contenedorTablaPaginas = document.getElementById('contenedor-tabla-paginas');
 const contenedorTablaPagina = document.getElementById('contenedor-tabla-pagina');
+const contenedorCr3 = document.getElementById('contenedor-cr3');
 const flecha = document.getElementById('flecha').querySelector('line');
 const flechaCr3 = document.getElementById('flecha-cr3').querySelector('line');
 let isDragging = false;
@@ -36,8 +37,7 @@ function updateArrows() {
     flecha.setAttribute('x2', pageRect.left);
     flecha.setAttribute('y2', pageRect.top + pageRect.height / 2);
 
-    const cr3Input = document.getElementById('cr3');
-    const cr3Rect = cr3Input.getBoundingClientRect();
+    const cr3Rect = contenedorCr3.getBoundingClientRect();
     const dirTableRect = contenedorTabla.getBoundingClientRect();
     flechaCr3.setAttribute('x1', cr3Rect.right);
     flechaCr3.setAttribute('y1', cr3Rect.top + cr3Rect.height / 2);
@@ -48,6 +48,7 @@ function updateArrows() {
 contenedorTabla.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTabla));
 contenedorTablaPaginas.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTablaPaginas));
 contenedorTablaPagina.addEventListener('mousedown', (e) => onMouseDown(e, contenedorTablaPagina));
+contenedorCr3.addEventListener('mousedown', (e) => onMouseDown(e, contenedorCr3));
 document.addEventListener('mouseup', onMouseUp);
 document.addEventListener('mousemove', onMouseMove);
 window.addEventListener('load', updateArrows);
