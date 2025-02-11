@@ -2,7 +2,7 @@
 #contenedor-tabla {
     position: absolute; /* Para poder moverlo libremente */
     left: 150px; /* Posición inicial a la izquierda de la pantalla */
-    top: 50px; /* Posición inicial en la mitad vertical de la pantalla */
+    top: 50%; /* Posición inicial en la mitad vertical de la pantalla */
     cursor: grab; /* Cambia el cursor al arrastrar */
     border: 1px solid #ccc; /* Borde para visualización */
     padding: 10px;
