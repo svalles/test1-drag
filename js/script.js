@@ -2,6 +2,7 @@ const contenedorTabla = document.getElementById('contenedor-tabla');
 const contenedorTablaPaginas = document.getElementById('contenedor-tabla-paginas');
 const contenedorTablaPagina = document.getElementById('contenedor-tabla-pagina');
 const contenedorCr3 = document.getElementById('contenedor-cr3');
+const contenedorOffset = document.getElementById('contenedor-offset');
 const flecha = document.getElementById('flecha').querySelector('line');
 const flechaCr3 = document.getElementById('flecha-cr3').querySelector('line');
 let isDragging = false;
