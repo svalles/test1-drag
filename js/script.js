@@ -29,7 +29,7 @@ function onMouseUp() {
 }
 
 function updateArrows() {
-    const dirCell = contenedorTabla.querySelectorAll('tbody tr')[1].querySelector('input');
+    const dirCell = contenedorTabla.querySelectorAll('tbody tr')[1].querySelector('input[name="puntero-tabla-paginas"]');
     const pageCell = contenedorTablaPaginas.querySelectorAll('tbody tr')[1].querySelector('input');
     const dirRect = dirCell.getBoundingClientRect();
     const pageRect = pageCell.getBoundingClientRect();
@@ -58,7 +58,7 @@ window.addEventListener('resize', updateArrows);
 function calcularDireccionFisica() {
     const direccionVirtual = document.getElementById('direccion-virtual').value;
     const cr3 = document.getElementById('cr3').value;
-    const directorio = document.querySelectorAll('#contenedor-tabla input');
+    const directorio = document.querySelectorAll('#contenedor-tabla input[name="puntero-tabla-paginas"]');
     const tablaPaginas = document.querySelectorAll('#contenedor-tabla-paginas input');
     const pagina = document.querySelectorAll('#contenedor-tabla-pagina input');
 
