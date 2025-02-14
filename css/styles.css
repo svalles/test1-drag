@@ -92,8 +92,21 @@ th, td {
 
 /* Estilos para los inputs dentro de las tablas */
 input[type="text"] {
-    width: 100%; /* Para que el input ocupe todo el ancho de la celda */
+    width: 48%; /* Para que cada input ocupe casi la mitad de la celda */
     box-sizing: border-box; /* Incluye el padding y el border en el ancho total */
+    display: inline-block; /* Para que los inputs estén en línea */
+}
+
+input[type="text"]:first-child {
+    margin-right: 4%; /* Espacio entre los dos inputs */
+}
+
+input[type="text"].left {
+    max-width: 5ch; /* Máximo 5 caracteres hexadecimales */
+}
+
+input[type="text"].right {
+    max-width: 3ch; /* Máximo 3 caracteres hexadecimales */
 }
 
 /* Estilos para las flechas */
