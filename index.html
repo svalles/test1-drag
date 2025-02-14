@@ -12,9 +12,15 @@
     <p>Ingrese una dirección virtual para determinar la dirección física.</p>
     <input type="text" id="direccion-virtual" placeholder="Ingrese dirección virtual" maxlength="8">
     <button onclick="calcularDireccionFisica()">Calcular Dirección Física</button>
+    
+    <!-- Contenedor para mostrar los valores calculados -->
+    <div id="valores-calculados" style="display: flex; gap: 10px; margin-top: 10px;">
+        <p id="indice-directorio"></p>
+        <p id="indice-tabla-pagina"></p>
+        <p id="offset"></p>
+    </div>
+
     <p id="direccion-fisica"></p>
-    <p id="indice-tabla-pagina"></p>
-    <p id="indice-directorio"></p>
 
     <div id="contenedor-cr3">
         <label for="cr3">CR3:</label>
