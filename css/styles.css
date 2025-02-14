@@ -35,7 +35,7 @@
 /* Estilos para el contenedor de la tabla de Página */
 #contenedor-tabla-pagina {
     position: absolute; /* Para poder moverlo libremente */
-    right: 10px; /* Posición inicial a la derecha de la pantalla */
+    right: 100px; /* Posición inicial a la derecha de la pantalla */
     top: 50%; /* Posición inicial en la mitad vertical de la pantalla */
     transform: translateY(-50%);
     cursor: grab; /* Cambia el cursor al arrastrar */
