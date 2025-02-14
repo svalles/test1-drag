@@ -33,7 +33,7 @@
 }
 
 /* Estilos para el contenedor de la tabla de Página */
-#contenedor-tabla-pagina {
+#contenedor-pagina {
     position: absolute; /* Para poder moverlo libremente */
     right: 100px; /* Posición inicial a la derecha de la pantalla */
     top: 50%; /* Posición inicial en la mitad vertical de la pantalla */
@@ -45,7 +45,7 @@
     width: 300px; /* Define un ancho específico para las tablas */
 }
 
-#contenedor-tabla-pagina:active {
+#contenedor-pagina:active {
     cursor: grabbing; /* Cambia el cursor al estar arrastrando */
 }
 

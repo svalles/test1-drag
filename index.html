@@ -37,7 +37,7 @@
         </defs>
     </svg>
 
-    <div id="contenedor-tabla">
+    <div id="contenedor-directorio">
         <table>
             <thead>
                 <tr>
@@ -124,7 +124,7 @@
         </table>
     </div>
 
-    <div id="contenedor-tabla-pagina">
+    <div id="contenedor-pagina"></div>
         <table>
             <thead>
                 <tr>
@@ -163,7 +163,8 @@
                 return response.text();
             })
             .then(data => {
-                document.getElementById('version').textContent = data.trim();
+                const commitMessage = data.split('\n')[1]; // Assuming the commit message is on the second line
+                document.getElementById('version').textContent = commitMessage.trim();
             })
             .catch(error => {
                 document.getElementById('version').textContent = 'Error loading version';

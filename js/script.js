@@ -1,6 +1,6 @@
-const contenedorTabla = document.getElementById('contenedor-tabla');
+const contenedorTabla = document.getElementById('contenedor-directorio');
 const contenedorTablaPaginas = document.getElementById('contenedor-tabla-paginas');
-const contenedorTablaPagina = document.getElementById('contenedor-tabla-pagina');
+const contenedorTablaPagina = document.getElementById('contenedor-pagina');
 const contenedorCr3 = document.getElementById('contenedor-cr3');
 const contenedorOffset = document.getElementById('contenedor-offset');
 const flecha = document.getElementById('flecha').querySelector('line');
@@ -58,9 +58,9 @@ window.addEventListener('resize', updateArrows);
 function calcularDireccionFisica() {
     const direccionVirtual = document.getElementById('direccion-virtual').value;
     const cr3 = document.getElementById('cr3').value;
-    const directorio = document.querySelectorAll('#contenedor-tabla input[name="puntero-tabla-paginas"]');
+    const directorio = document.querySelectorAll('#contenedor-directorio input[name="puntero-tabla-paginas"]');
     const tablaPaginas = document.querySelectorAll('#contenedor-tabla-paginas input[name="puntero-a-pagina"]');
-    const pagina = document.querySelectorAll('#contenedor-tabla-pagina input');
+    const pagina = document.querySelectorAll('#contenedor-pagina input');
 
     if (!/^[0-9a-fA-F]{8}$/.test(direccionVirtual)) {
         alert('Por favor, ingrese una dirección virtual válida de 8 caracteres hexadecimales.');
