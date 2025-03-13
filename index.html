@@ -2,176 +2,151 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Paginación Intel x86</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>X86 Paging Tutorial</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --accent-1: #6ab0f3;
+            --accent-2: #4a8bc2;
+        }
+
+        body {
+            font-family: 'Consolas', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            border-right: 2px solid var(--accent-2);
+            padding-right: 20px;
+        }
+
+        .simulation-area {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            min-height: 500px;
+            position: relative;
+        }
+
+        .memory-block {
+            background: #3a3a3a;
+            border: 1px solid var(--accent-1);
+            padding: 10px;
+            margin: 10px;
+            cursor: move;
+            user-select: none;
+            position: absolute;
+        }
+
+        .register {
+            background: #4a4a4a;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .address-translation {
+            border: 1px solid var(--accent-2);
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Explicación de Paginación</h2>
+            <p>La paginación en x86 usa una tabla de páginas jerárquica:</p>
+            <ol>
+                <li>Registro CR3 apunta al directorio de páginas</li>
+                <li>Directorio de páginas (PDE)</li>
+                <li>Tabla de páginas (PTE)</li>
+                <li>Marco de página física</li>
+            </ol>
+            
+            <div class="address-translation">
+                <h3>Traducción de Direcciones</h3>
+                <p>Dirección virtual (32 bits):</p>
+                <code>
+                    [10 bits PDE] [10 bits PTE] [12 bits Offset]
+                </code>
+            </div>
+        </div>
 
-    <h1>Sistema de Paginación Intel x86</h1>
-    <p>Ingrese una dirección virtual para determinar la dirección física.</p>
-    <input type="text" id="direccion-virtual" placeholder="Ingrese dirección virtual" maxlength="8">
-    <button onclick="calcularDireccionFisica()">Calcular Dirección Física</button>
-    
-    <!-- Contenedor para mostrar los valores calculados -->
-    <div id="valores-calculados" style="display: flex; gap: 10px; margin-top: 10px;">
-        <p id="indice-directorio"></p>
-        <p id="indice-tabla-pagina"></p>
-        <p id="offset"></p>
+        <div class="simulation-area">
+            <div class="register">CR3: 0x00000000</div>
+            
+            <div id="paging-diagram">
+                <!-- Aquí iría el diagrama SVG/Canvas de paginación -->
+            </div>
+
+            <div class="memory-block" style="left: 50px; top: 100px;">
+                Page Directory
+                <div class="entry">PDE 0: 0x00001000</div>
+            </div>
+
+            <div class="memory-block" style="left: 300px; top: 200px;">
+                Page Table
+                <div class="entry">PTE 0: 0x00002000</div>
+            </div>
+        </div>
     </div>
 
-    <p id="direccion-fisica"></p>
-
-    <div id="contenedor-cr3">
-        <label for="cr3">CR3:</label>
-        <input type="text" id="cr3" placeholder="Ingrese CR3" maxlength="8" style="width: 80px;">
-        <p id="cr3-error" style="color: red;"></p>
-    </div>
-
-    <svg id="flecha-cr3" width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
-        <line x1="0" y1="0" x2="0" y2="0" stroke="black" stroke-width="2" marker-end="url(#arrowhead)" />
-        <defs>
-            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" />
-            </marker>
-        </defs>
-    </svg>
-
-    <div id="contenedor-directorio">
-        <table>
-            <thead>
-                <tr>
-                    <th>Directorio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <input type="text" name="puntero-tabla-paginas" maxlength="5" placeholder="Puntero a Tabla de Páginas" style="width: 60%;">
-                        <input type="text" name="atributos" maxlength="3" placeholder="Atributos" style="width: 30%;">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" name="puntero-tabla-paginas" maxlength="5" placeholder="Puntero a Tabla de Páginas" style="width: 60%;">
-                        <input type="text" name="atributos" maxlength="3" placeholder="Atributos" style="width: 30%;">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" name="puntero-tabla-paginas" maxlength="5" placeholder="Puntero a Tabla de Páginas" style="width: 60%;">
-                        <input type="text" name="atributos" maxlength="3" placeholder="Atributos" style="width: 30%;">
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;">............</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" name="puntero-tabla-paginas" maxlength="5" placeholder="Puntero a Tabla de Páginas" style="width: 60%;">
-                        <input type="text" name="atributos" maxlength="3" placeholder="Atributos" style="width: 30%;">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <svg id="flecha" width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
-        <line x1="0" y1="0" x2="0" y2="0" stroke="black" stroke-width="2" marker-end="url(#arrowhead)" />
-        <defs>
-            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" />
-            </marker>
-        </defs>
-    </svg>
-
-    <div id="contenedor-tabla-paginas">
-        <table>
-            <thead>
-                <tr>
-                    <th>Tabla de Páginas</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <input type="text" name="puntero-a-pagina" maxlength="5" placeholder="Puntero a Página" style="width: 60%;">
-                        <input type="text" name="atributo" maxlength="3" placeholder="Atributo" style="width: 30%;">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" name="puntero-a-pagina" maxlength="5" placeholder="Puntero a Página" style="width: 60%;">
-                        <input type="text" name="atributo" maxlength="3" placeholder="Atributo" style="width: 30%;">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" name="puntero-a-pagina" maxlength="5" placeholder="Puntero a Página" style="width: 60%;">
-                        <input type="text" name="atributo" maxlength="3" placeholder="Atributo" style="width: 30%;">
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;">............</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" name="puntero-a-pagina" maxlength="5" placeholder="Puntero a Página" style="width: 60%;">
-                        <input type="text" name="atributo" maxlength="3" placeholder="Atributo" style="width: 30%;">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="contenedor-pagina"></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Página de 4KB</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" name="pagina" placeholder="1 byte de RAM"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" name="pagina" placeholder="1 byte de RAM"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" name="pagina" placeholder="1 byte de RAM"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;">............</td>
-                </tr>
-                <tr>
-                    <td><input type="text" name="pagina" placeholder="1 byte de RAM"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div style="position: absolute; bottom: 10px; right: 10px; font-size: 12px; color: gray;">
-        Versión: <span id="version"></span>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script>
-        fetch('version.txt')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then(data => {
-                const commitMessage = data.split('\n')[1]; // Assuming the commit message is on the second line
-                document.getElementById('version').textContent = commitMessage.trim();
-            })
-            .catch(error => {
-                document.getElementById('version').textContent = 'Error loading version';
-                console.error('Error fetching version:', error);
-            });
-    </script>
+        // Configuración de arrastre para los bloques de memoria
+        interact('.memory-block').draggable({
+            inertia: false,
+            modifiers: [
+                interact.modifiers.restrictRect({
+                    restriction: 'parent'
+                })
+            ],
+            listeners: {
+                move: dragMoveListener
+            }
+        });
 
-    <script src="js/script.js"></script>
+        function dragMoveListener(event) {
+            const target = event.target;
+            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+            target.style.transform = `translate(${x}px, ${y}px)`;
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+        }
+
+        // Simulación básica de traducción de direcciones
+        function translateAddress(virtualAddress) {
+            const cr3 = 0x00000000; // Valor del registro CR3
+            const pdeIndex = (virtualAddress >> 22) & 0x3FF;
+            const pteIndex = (virtualAddress >> 12) & 0x3FF;
+            const offset = virtualAddress & 0xFFF;
+            
+            // Simular acceso a tablas de páginas
+            const pde = getPageDirectoryEntry(pdeIndex);
+            const pte = getPageTableEntry(pteIndex);
+            
+            return (pte & 0xFFFFF000) + offset;
+        }
+
+        // Funciones de simulación (deberían implementarse completamente)
+        function getPageDirectoryEntry(index) { return 0x00001000; }
+        function getPageTableEntry(index) { return 0x00002000; }
+    </script>
 </body>
 </html>
